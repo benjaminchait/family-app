@@ -1,10 +1,10 @@
 # Family Tracking App — Plan
 
-**Date:** 2026-07-29
+**Date:** 2026-07-29 (updated same day: baby born 7/27 — MVP scope confirmed as feeding + diaper changes)
 
-**Status:** Planning — no code yet
+**Status:** Planning — no code yet. **The baby is here (born 7/27/2026), so the tracking need is live today.** Every day without the app is a day of feeds and diapers logged on paper or memory.
 
-**Goal:** A private iOS app for two parents to track a newborn's feeding and diapers, syncing between both phones via iCloud, distributed through a personal Apple Developer account. No third-party services, no accounts, no analytics.
+**Goal:** A private iOS app for two parents to track their newborn's feeding and diaper changes, syncing between both phones via iCloud, distributed through a personal Apple Developer account. No third-party services, no accounts, no analytics.
 
 ---
 
@@ -27,6 +27,8 @@ These constraints matter more than the feature list:
 ---
 
 ## MVP scope
+
+Confirmed 2026-07-29: the MVP is **feeding and diaper changes, nothing else**. Everything below the "deferred" line stays deferred until the MVP is in daily use on both phones.
 
 **Feeding**
 
@@ -51,7 +53,7 @@ These constraints matter more than the feature list:
 
 Small, append-mostly event log:
 
-- **Child** — name, birth date. Model as a list even though there's one child; sharing and future-proofing both want it.
+- **Child** — name, birth date (known: 2026-07-27). Model as a list even though there's one child; sharing and future-proofing both want it. The MVP UI assumes exactly one child — no child picker.
 - **Event** — id (UUID), type (feed / diaper), subtype (breast / bottle / wet / dirty / both), start, end (nullable, for timed feeds), side (left / right, nullable), amount (nullable, oz), note (nullable), createdBy device/parent, timestamps.
 
 Events are independent rows that are almost never edited by both people at once, so sync conflicts are rare by construction; last-writer-wins per record is fine.
@@ -115,21 +117,21 @@ Practical note: an individual (non-organization) membership means Cara is an ext
 
 ## Build sequence
 
-1. **Walking skeleton (a weekend):** local-only app — data model, log buttons, home screen, history with edit. Install on Benjamin's phone via Xcode. Usable on day one even without sync.
-2. **Sync (week 2):** CloudKit container + share flow; install on Cara's phone; verify concurrent logging and offline behavior.
+1. **Walking skeleton (now — first Xcode session):** local-only app — data model, log buttons, home screen, history with edit and backdating. Install on Benjamin's phone via Xcode. Backdating matters from day one: the first days of feeds and diapers exist on paper/memory and should be entered once the app runs.
+2. **Sync (next):** CloudKit container + share flow; install on Cara's phone; verify concurrent logging and offline behavior.
 3. **TestFlight:** app record, first upload, beta review, Cara on TestFlight.
 4. **Polish as-used:** whatever the 3 a.m. experience demands — this is where deferred features get promoted one at a time.
 
-Baby is due in August — the walking skeleton matters more than anything on the deferred list. A local-only app on one phone the week she arrives beats a synced app two weeks late.
+The baby was born 7/27 — the walking skeleton is the whole ballgame now. A local-only app on one phone tonight beats a synced app next week; until sync lands, one phone (whichever parent is primary logger) is the source of truth.
 
 ---
 
 ## Decisions needed before building
 
-1. **Name + bundle identifier.** Short and generic. Candidates to react to: Sprout, Tally, Nightshift. Bundle id something like `net.benjaminchait.<name>`.
+1. **Name + bundle identifier.** Short and generic (no child name in the bundle id or App Store Connect record). Candidates to react to: Sprout, Tally, Nightshift. Bundle id something like `net.benjaminchait.<name>`.
 2. **Sync approach sign-off** — Core Data + CloudKit sharing as recommended above?
 3. **Distribution** — TestFlight target state with direct-install for day one?
-4. **MVP cut line** — is pumping needed in v1 (relevant if bottle feeding starts early), or is deferring it right?
+4. **Pumping** — now decidable from actual feeding patterns rather than hypotheticals: if bottles of pumped milk are already part of the routine, pumping moves into v1; otherwise it stays deferred. (~~MVP cut line~~ — resolved 2026-07-29: MVP is feeding + diapers only.)
 5. **iOS versions** on both phones — sets the deployment target.
 
 ---
