@@ -128,6 +128,8 @@ The baby was born 7/27 — the walking skeleton is the whole ballgame now. A loc
 
 ## Decisions needed before building
 
+> Superseded 2026-07-29 by [QUESTIONS.md](QUESTIONS.md) — the full pre-build question list (28 items with recommended defaults) that must be answered before the one-shot build session. The five below are the headline subset.
+
 1. **Name + bundle identifier.** Short and generic (no child name in the bundle id or App Store Connect record). Candidates to react to: Sprout, Tally, Nightshift. Bundle id something like `net.benjaminchait.<name>`.
 2. **Sync approach sign-off** — Core Data + CloudKit sharing as recommended above?
 3. **Distribution** — TestFlight target state with direct-install for day one?
